@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'scraper.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'default_db',
-        'USER': 'gen_user',
-        'PASSWORD': 'amirpro445',
-        'HOST': 'bce815d6bbb04bf20d17af96.twc1.net',
-        'PORT': '5432',
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
         'OPTIONS': {
             'sslmode': 'require',
         },

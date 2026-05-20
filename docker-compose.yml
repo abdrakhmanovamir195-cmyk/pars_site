@@ -9,9 +9,13 @@ services:
       POSTGRES_PASSWORD: pip188
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - appnet
 
   redis:
     image: redis:7
+    networks:
+      - appnet
 
   web:
     build: .
@@ -25,6 +29,8 @@ services:
       - DJANGO_SETTINGS_MODULE=scraper.settings
       - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
       - DATABASE_URL=postgres://postgres:pip188@db:5432/bdd
+    networks:
+      - appnet
 
   celery:
     build: .
@@ -36,6 +42,12 @@ services:
       - DJANGO_SETTINGS_MODULE=scraper.settings
       - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
       - DATABASE_URL=postgres://postgres:pip188@db:5432/bdd
+    networks:
+      - appnet
+
+networks:
+  appnet:
+    driver: bridge
 
 volumes:
   postgres_data:

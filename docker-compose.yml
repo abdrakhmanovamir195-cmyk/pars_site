@@ -4,9 +4,9 @@ services:
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: bdd
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: pip188
+      POSTGRES_DB: default_db
+      POSTGRES_USER: gen_user
+      POSTGRES_PASSWORD: amirpro445
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:

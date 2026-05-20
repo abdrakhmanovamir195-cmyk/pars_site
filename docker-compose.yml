@@ -16,30 +16,26 @@ services:
   web:
     build: .
     command: gunicorn scraper.wsgi:application --bind 0.0.0.0:8000
-    volumes:
-      - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
       - redis
-    env_file:
-      - .env
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
+      - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
+      - DATABASE_URL=postgres://postgres:pip188@db:5432/bdd
 
   celery:
     build: .
     command: celery -A scraper worker --loglevel=info --pool=solo
-    volumes:
-      - .:/app
     depends_on:
       - db
       - redis
-    env_file:
-      - .env
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
+      - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
+      - DATABASE_URL=postgres://postgres:pip188@db:5432/bdd
 
 volumes:
   postgres_data:

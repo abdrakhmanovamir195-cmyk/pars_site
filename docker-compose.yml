@@ -28,7 +28,7 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
       - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
-      - DATABASE_URL=postgres://postgres:pip188@db:5432/bdd
+      - DATABASE_URL=postgresql://gen_user:amirpro445@bce815d6bbb04bf20d17af96.twc1.net:5432/default_db?sslmode=verify-full
     networks:
       - appnet
 

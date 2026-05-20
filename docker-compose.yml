@@ -2,11 +2,11 @@ version: '3.8'
 
 services:
   db:
-    image: postgres:18
+    image: postgres:15
     environment:
-      POSTGRES_DB: default_db
-      POSTGRES_USER: gen_user
-      POSTGRES_PASSWORD: amirpro445
+      POSTGRES_DB: bdd
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pip188
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -27,8 +27,6 @@ services:
       - redis
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
-      - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
-      - DATABASE_URL=postgresql://gen_user:amirpro445@bce815d6bbb04bf20d17af96.twc1.net:5432/default_db?sslmode=verify-full
     networks:
       - appnet
 
@@ -40,8 +38,6 @@ services:
       - redis
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
-      - SECRET_KEY=django-insecure-fg1vl0s*akgind9!vb+v4e0&2i3-oyd_th-jp^bc7ntd7osw80
-      - DATABASE_URL=postgresql://gen_user:amirpro445@bce815d6bbb04bf20d17af96.twc1.net:5432/default_db?sslmode=verify-full
     networks:
       - appnet
 

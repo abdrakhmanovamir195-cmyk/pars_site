@@ -78,20 +78,18 @@ WSGI_APPLICATION = 'scraper.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'default_db',
-        'USER': 'gen_user',
-        'PASSWORD': 'amirpro445',
-        'HOST': 'bce815d6bbb04bf20d17af96.twc1.net.',
+        'NAME': 'bdd',
+        'USER': 'postgres',
+        'PASSWORD': 'pip188',
+        'HOST': 'db',
         'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'require',
-        },
     }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 

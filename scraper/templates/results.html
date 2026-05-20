@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .navbar { background: #1a1a2e !important; }
+        .btn-primary { background: #e94560; border: none; }
+        .card:hover { transform: translateY(-3px); transition: 0.3s; }
+        footer { background: #1a1a2e; color: #aaa; }
+    </style>
+</head>
+<body class="bg-light">
+
+<!-- Навбар -->
+<nav class="navbar navbar-dark px-4 py-3">
+    <span class="navbar-brand fw-bold fs-4">📚 BookParser Pro</span>
+    <span class="text-white-50">+7 (999) 123-45-67</span>
+</nav>
+
+<div class="container my-5">
+
+    <!-- Заголовок -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">Результаты задачи #{{ task.id }}</h2>
+            <p class="mb-0">Статус:
+                {% if task.status == 'done' %}
+                    <span class="badge bg-success fs-6">✅ Готово</span>
+                {% elif task.status == 'running' %}
+                    <span class="badge bg-warning fs-6">⏳ Выполняется...</span>
+                {% elif task.status == 'error' %}
+                    <span class="badge bg-danger fs-6">❌ Ошибка</span>
+                {% else %}
+                    <span class="badge bg-secondary fs-6">⏸ Ожидает</span>
+                {% endif %}
+            </p>
+        </div>
+        <a href="/" class="btn btn-primary">← Новый парсинг</a>
+    </div>
+
+    {% if products %}
+
+    <!-- Сортировка -->
+    <div class="card border-0 shadow-sm mb-4 p-3">
+        <div class="d-flex gap-2 flex-wrap">
+            <span class="fw-semibold me-2 my-auto">Сортировать:</span>
+            <a href="?sort=price_asc" class="btn btn-outline-primary btn-sm">💰 Цена ↑</a>
+            <a href="?sort=price_desc" class="btn btn-outline-primary btn-sm">💰 Цена ↓</a>
+            <a href="?sort=name_asc" class="btn btn-outline-secondary btn-sm">🔤 А-Я</a>
+            <a href="?sort=name_desc" class="btn btn-outline-secondary btn-sm">🔤 Я-А</a>
+            <a href="?sort=" class="btn btn-outline-dark btn-sm">↺ Сбросить</a>
+        </div>
+    </div>
+
+    <!-- Счётчик -->
+    <p class="text-muted mb-3">Найдено книг: <strong>{{ products.count }}</strong></p>
+
+    <!-- Карточки -->
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <img src="{{ product.url_img }}" class="card-img-top"
+                     style="height:200px; object-fit:cover;">
+                <div class="card-body d-flex flex-column">
+                    <h6 class="card-title fw-bold">{{ product.name }}</h6>
+                    <p class="card-text text-success fw-bold mt-auto fs-5">{{ product.price }}</p>
+                    <small class="text-muted">{{ product.category.name }}</small>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <div class="alert alert-info text-center py-5">
+        <div class="fs-1 mb-3">⏳</div>
+        <h4>Данные загружаются...</h4>
+        <p class="text-muted">Обновите страницу через несколько секунд</p>
+        <a href="" class="btn btn-primary">🔄 Обновить</a>
+    </div>
+    {% endif %}
+
+</div>
+
+<!-- Footer -->
+<footer class="py-4 text-center">
+    <p class="mb-0">© 2026 BookParser Pro. Все права защищены.</p>
+</footer>
+
+</body>
+</html>

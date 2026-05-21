@@ -1,35 +1,36 @@
-version: '3.8'
+version: '3.9'
 
 services:
   db:
     image: postgres:15
+    container_name: db
     environment:
       POSTGRES_DB: bdd
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: pip188
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bdd"]
+      interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
     networks:
       - appnet
 
   redis:
     image: redis:7
+    container_name: redis
     networks:
       - appnet
 
   web:
     build: .
+    container_name: web
     command: sh -c "python manage.py migrate && gunicorn scraper.wsgi:application --bind 0.0.0.0:8000"
     ports:
       - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
-      redis:
-        condition: service_started
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
     networks:
@@ -37,10 +38,11 @@ services:
 
   celery:
     build: .
+    container_name: celery
     command: celery -A scraper worker --loglevel=info --pool=solo
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
     networks:

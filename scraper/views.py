@@ -7,7 +7,10 @@ from django.contrib.auth import login
 
 
 def index(request):
-    categories = Category.objects.all().select_related('site')
+    try:
+        categories = Category.objects.all().select_related('site')
+    except Exception as e:
+        categories = []
     return render(request, 'index.html', {'categories': categories})
 
 

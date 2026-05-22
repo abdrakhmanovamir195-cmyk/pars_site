@@ -85,7 +85,7 @@ DATABASES = {
         'NAME': 'bdd',
         'USER': 'postgres',
         'PASSWORD': 'pip188',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }

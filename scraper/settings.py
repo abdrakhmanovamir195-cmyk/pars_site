@@ -136,3 +136,4 @@ CELERY_BROKER_URL = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
 CELERY_RESULT_BACKEND = os.environ.get('REDIS_URL', 'redis://redis:6379/0')
 
 
+CSRF_TRUSTED_ORIGINS = ['https://abdrakhmanovamir195-cmyk-pars-site-c2b3.twc1.net']

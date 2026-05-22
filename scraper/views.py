@@ -1,9 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
 from .models import Category, Site, ParseTask, Product
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-
 
 
 def index(request):
@@ -18,7 +14,7 @@ def start_parsing(request):
     if request.method == 'POST':
         selected_categories = request.POST.getlist('categories')
 
-        task = ParseTask.objects.create(user=request.user, status='pending')
+        task = ParseTask.objects.create(status='pending')
         task.categories.set(selected_categories)
 
         for cat_id in selected_categories:
@@ -35,7 +31,7 @@ def start_parsing(request):
 
 
 def results(request, task_id):
-    task = get_object_or_404(ParseTask, id=task_id, user=request.user)
+    task = get_object_or_404(ParseTask, id=task_id)
     products = Product.objects.filter(task=task)
 
     sort = request.GET.get('sort', '')
@@ -52,4 +48,3 @@ def results(request, task_id):
         'task': task,
         'products': products,
     })
-

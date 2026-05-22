@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-    name = models.CharField(max_length=100)  # носки, трусы и т.д.
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -33,7 +33,7 @@ class ParseTask(models.Model):
         ('error', 'Ошибка'),
     ]
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     sites = models.ManyToManyField(Site)
     categories = models.ManyToManyField(Category)
     status = models.CharField(max_length=20, choices=STATUS, default='pending')

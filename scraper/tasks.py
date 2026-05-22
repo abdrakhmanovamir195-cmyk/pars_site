@@ -26,7 +26,9 @@ def run_parser(task_id, parser_key):
         results = parser_func()
         site = Site.objects.get(parser_key=parser_key)
 
-        category = task.categories.first()
+        # Берём категорию по parser_key, а не первую попавшуюся
+        category = site.category
+
         for item in results:
             Product.objects.create(
                 task=task,
@@ -41,7 +43,10 @@ def run_parser(task_id, parser_key):
         task.save()
 
     except Exception as e:
-        task = ParseTask.objects.get(id=task_id)
-        task.status = 'error'
-        task.save()
+        try:
+            task = ParseTask.objects.get(id=task_id)
+            task.status = 'error'
+            task.save()
+        except:
+            pass
         raise e

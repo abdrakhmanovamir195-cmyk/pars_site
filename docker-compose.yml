@@ -10,7 +10,7 @@ services:
         condition: service_healthy
     environment:
       - DJANGO_SETTINGS_MODULE=scraper.settings
-      - DJANGO_SUPERUSER_PASSWORD=1122
+      - DJANGO_SUPERUSER_PASSWORD=${DJANGO_SUPERUSER_PASSWORD}
       - DJANGO_SUPERUSER_USERNAME=root
       - DJANGO_SUPERUSER_EMAIL=root@root.com
       - SECRET_KEY=${SECRET_KEY}
